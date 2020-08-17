@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work_time: 
+  break_time: 
+  schedule: one
+
+two:
+  work_time: 
+  break_time: 
+  schedule: two
