@@ -1,12 +1,12 @@
 class SchedulesController < ApplicationController
-  before_action :authenticate, only: [:create]
+  before_action :authenticate, only: [:create, :show, :update, :destroy, :index]
   before_action :set_schedule, only: [:show, :update, :destroy]
 
   # GET /schedules
   def index
-    @schedules = Schedule.all
+    @schedules = @user.schedules
 
-    render json: @schedules
+    render json: @schedules, include: [:time_values]
   end
 
   # GET /schedules/1
@@ -16,7 +16,9 @@ class SchedulesController < ApplicationController
 
   # POST /schedules
   def create
-    @schedule = Schedule.new(schedule_params)
+    newSchedule = schedule_params
+    newSchedule[:user_id] = @user.id
+    @schedule = Schedule.new(newSchedule)
 
     if @schedule.save
       render json: @schedule, include: [:time_values], status: :created, location: @schedule
